@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hexadecimal Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Hexadecimal Calculator</h2>
+    <input type="text" id="input-box" class="textBox" readonly>
+    <div class="keyboard">
+      <button class="key" onclick="appendToInput('1')">1</button>
+      <button class="key" onclick="appendToInput('2')">2</button>
+      <button class="key" onclick="appendToInput('3')">3</button>
+      <button class="key" onclick="appendToInput('4')">4</button>
+      <button class="key" onclick="appendToInput('5')">5</button>
+      <button class="key" onclick="appendToInput('6')">6</button>
+      <button class="key" onclick="appendToInput('7')">7</button>
+      <button class="key" onclick="appendToInput('8')">8</button>
+      <button class="key" onclick="appendToInput('9')">9</button>
+      <button class="key" onclick="appendToInput('A')">A</button>
+      <button class="key" onclick="appendToInput('B')">B</button>
+      <button class="key" onclick="appendToInput('C')">C</button>
+      <button class="key" onclick="appendToInput('D')">D</button>
+      <button class="key" onclick="appendToInput('E')">E</button>
+      <button class="key" onclick="appendToInput('F')">F</button>
+      <button class="key" onclick="clearInput()">CLR</button>
+      <button class="key" onclick="appendToInput('+')">+</button>
+      <button class="key" onclick="calculateResult()">=</button>
+    </div>
+    <h3 id="result">Result: </h3>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
