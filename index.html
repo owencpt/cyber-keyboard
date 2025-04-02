@@ -1,39 +1,49 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hexadecimal Calculator</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSecurity Keyboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script> <!-- Loads script after HTML -->
 </head>
 <body>
 
-  <div class="container">
-    <h2>Hexadecimal Calculator</h2>
-    <input type="text" id="input-box" class="textBox" readonly>
-    <div class="keyboard">
-      <button class="key" onclick="appendToInput('1')">1</button>
-      <button class="key" onclick="appendToInput('2')">2</button>
-      <button class="key" onclick="appendToInput('3')">3</button>
-      <button class="key" onclick="appendToInput('4')">4</button>
-      <button class="key" onclick="appendToInput('5')">5</button>
-      <button class="key" onclick="appendToInput('6')">6</button>
-      <button class="key" onclick="appendToInput('7')">7</button>
-      <button class="key" onclick="appendToInput('8')">8</button>
-      <button class="key" onclick="appendToInput('9')">9</button>
-      <button class="key" onclick="appendToInput('A')">A</button>
-      <button class="key" onclick="appendToInput('B')">B</button>
-      <button class="key" onclick="appendToInput('C')">C</button>
-      <button class="key" onclick="appendToInput('D')">D</button>
-      <button class="key" onclick="appendToInput('E')">E</button>
-      <button class="key" onclick="appendToInput('F')">F</button>
-      <button class="key" onclick="clearInput()">CLR</button>
-      <button class="key" onclick="appendToInput('+')">+</button>
-      <button class="key" onclick="calculateResult()">=</button>
-    </div>
-    <h3 id="result">Result: </h3>
-  </div>
+    <h2>CyberSecurity Keyboard</h2>
+    
+    <!-- Display user inputs -->
+    <div id="display" style="font-size: 20px; margin-bottom: 10px;">User Input: </div>
 
-  <script src="script.js"></script>
+    <label for="output-type">Choose Output Type:</label>
+    <select id="output-type" onchange="updateOutputType()">
+        <option value="1">Decimal</option>
+        <option value="2">Hexadecimal</option>
+    </select>
+
+    <!-- Buttons for input -->
+    <div class="button-container">
+        <button class="key" onclick="handleKeyPress('0x')">0x</button>
+        <button class="key" onclick="handleKeyPress('1')">1</button>
+        <button class="key" onclick="handleKeyPress('2')">2</button>
+        <button class="key" onclick="handleKeyPress('3')">3</button>
+        <button class="key" onclick="handleKeyPress('4')">4</button>
+        <button class="key" onclick="handleKeyPress('5')">5</button>
+        <button class="key" onclick="handleKeyPress('6')">6</button>
+        <button class="key" onclick="handleKeyPress('7')">7</button>
+        <button class="key" onclick="handleKeyPress('8')">8</button>
+        <button class="key" onclick="handleKeyPress('9')">9</button>
+        <button class="key" onclick="handleKeyPress('A')">A</button>
+        <button class="key" onclick="handleKeyPress('B')">B</button>
+        <button class="key" onclick="handleKeyPress('C')">C</button>
+        <button class="key" onclick="handleKeyPress('D')">D</button>
+        <button class="key" onclick="handleKeyPress('E')">E</button>
+        <button class="key" onclick="handleKeyPress('F')">F</button>
+        <button class="key" onclick="handleKeyPress('CLR')">CLR</button>
+        <button class="key" onclick="handleKeyPress('+')">+</button>
+        <button class="key" onclick="handleKeyPress('=')">=</button>
+    </div>
+    
+
 </body>
 </html>

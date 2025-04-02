@@ -1,0 +1,154 @@
+/* General Page Styling */
+body {
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    background-color: #121212;
+    color: #0f0; /* Cybersecurity green */
+    padding: 20px;
+}
+
+/* Heading */
+h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+/* Display Screen */
+#display {
+    width: 300px;
+    height: 50px;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: black;
+    color: #0f0;
+    text-align: right;
+    border: 2px solid #0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #0f0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Keyboard Layout */
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    gap: 10px;
+    justify-content: center;
+    max-width: 260px;
+    margin: 0 auto;
+}
+
+/* Button (Key) Styling */
+.key {
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+    font-weight: bold;
+    border: 2px solid #0f0;
+    background-color: black;
+    color: #0f0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 4px #0a0;
+}
+
+/* Key Hover Effect */
+.key:hover {
+    background-color: #0f0;
+    color: black;
+}
+
+/* Key Pressed Effect */
+.key:active {
+    box-shadow: 0 2px #0a0;
+    transform: translateY(2px);
+}
+
+/* Special Key (CLR and =) */
+.key:nth-last-child(2),
+.key:last-child {
+    background-color: #ff0000;
+    border-color: white;
+    color: white;
+}
+
+.key:nth-last-child(2):hover,
+.key:last-child:hover {
+    background-color: #ff4d4d;
+    color: black;
+}
+
+.button-container {
+    display: flex;               /* Enable Flexbox */
+    flex-wrap: wrap;             /* Allow wrapping to the next line */
+    justify-content: center;     /* Center buttons horizontally */
+    gap: 10px;                   /* Space between buttons */
+}
+
+.key {
+    width: 60px;                /* Width of each button */
+    height: 60px;               /* Height of each button */
+    font-size: 20px;            /* Text size inside the button */
+    margin: 5px;                /* Small margin for spacing */
+    background-color: black; /* Background color */
+    border: 1px solid #ccc;     /* Button border */
+    border-radius: 8px;         /* Rounded corners */
+    cursor: pointer;            /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.key:hover {
+    background-color: #ddd;     /* Change color when hovered */
+}
+
+/* Style the dropdown to match the black keys */
+select {
+    background-color: #000; /* Black background */
+    color: green; /* Green text */
+    font-family: 'Arial', sans-serif; /* Same font as the keys */
+    font-size: 18px;
+    padding: 8px;
+    border: 1px solid #222;
+    border-radius: 5px;
+    width: 150px;
+    appearance: none; /* Remove default styling in some browsers */
+    cursor: pointer;
+}
+
+/* Custom arrow for the select dropdown */
+select::-ms-expand {
+    display: none; /* Hide default dropdown arrow in IE */
+}
+
+/* Style for the option items */
+option {
+    background-color: #000; /* Black background for options */
+    color: green; /* Green text for options */
+    padding: 8px;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif; /* Same font as the keys */
+}
+
+/* Hover effect for the option items */
+option:hover {
+    background-color: #333; /* Slightly lighter black on hover */
+    color: white; /* White text on hover */
+}
+
+/* Dropdown hover and focus effects */
+select:hover, select:focus {
+    border-color: #555;
+    outline: none;
+}
+
+/* Adding some space around the select element */
+select {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

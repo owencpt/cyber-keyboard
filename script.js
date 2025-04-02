@@ -1,46 +1,89 @@
-let inputBox = document.getElementById('input-box');
-let resultDisplay = document.getElementById('result');
+class CyberSecurityKeyboard {
+  constructor() {
+      this.userInputs = [];  // Stores all user inputs
+      this.currentInput = "";  // Temporary string to accumulate input until operator is pressed
+      this.arithmeticOperations = [];  // Stores arithmetic operations
+      this.output = 1;
+  }
 
-// Add a number or symbol to the input box
-function appendToInput(value) {
-    // Check if the value is "+" and handle it separately
-    if (value == "+") {
-        // Add the "+" sign to the input box only if it's not already there
-        if (inputBox.value && !inputBox.value.includes("+")) {
-            inputBox.value += value; // Append "+" to the input box
-        }
+  // Method to handle input
+  captureInput(userInput) {
+      this.userInputs.push(userInput);
+      this.updateDisplay();
+  }
+
+  // Method to evaluate user inputs
+  evaluateInput() {
+      if (this.userInputs.length === 0) return;
+
+      try {
+          // Convert array to string and evaluate expression
+          let expression = this.userInputs.join("");
+          expression = this.conversion(expression);
+          alert(expression)
+          let result = eval(expression);  // ⚠️ Be careful with eval (safer alternatives below)
+
+          if (this.output === 2){
+            result = '0x' + result.toString(16).toUpperCase();
+          }
+
+          this.userInputs = [result]; // Store result in userInputs
+          this.updateDisplay();
+
+          
+      } catch (error) {
+          alert("Invalid Expression!");
+          this.clearDisplay();
+      }
+  }
+
+  conversion(expression){
+      return expression.replace(/\b0x[0-9A-Fa-f]+\b/g, (match) => {
+        return parseInt(match, 16); // Convert hex to decimal
+    });
+
+  }
+
+  // Method to update the display in the HTML
+  updateDisplay() {
+    const displayElement = document.getElementById("display");
+
+    // If userInputs is empty or just contains a space, show placeholder text
+    if (this.userInputs.length === 0 || this.userInputs.join("") === " ") {
+        displayElement.innerText = "Enter your input...";
     } else {
-        // For other values (hexadecimal digits), just append to the input box
-        inputBox.value += value;
+        // Join user inputs into a string
+        let displayText = this.userInputs.join("");
+
+        // Set the modified string as the inner HTML of the display
+        displayElement.innerHTML = displayText;
     }
 }
 
-
-// Clear the input box
-function clearInput() {
-  inputBox.value = "";
-  resultDisplay.textContent = "Result: ";
+  // Method to clear display 
+  clearDisplay() {
+      this.userInputs = ["\u00A0"]; // Non-breaking space to prevent collapse
+      this.updateDisplay();
+  }
 }
 
-// Calculate the result (Hexadecimal addition for simplicity)
-function calculateResult() {
-  let hexValue = inputBox.value.trim();
-  if (hexValue === "") {
-    resultDisplay.textContent = "Result: Invalid input";
-    return;
-  }
-  
-  try {
-    // Convert hex to decimal and add 1 for simplicity
-    let decimalValue = parseInt(hexValue, 16);  // Convert to decimal
-    if (isNaN(decimalValue)) {
-      resultDisplay.textContent = "Result: Invalid Hexadecimal";
+// Create an instance of the class
+const keyboard = new CyberSecurityKeyboard();
+
+// Function to handle button clicks (used in onclick)
+function handleKeyPress(value) {
+  if (value === "=") {
+      keyboard.evaluateInput();
       return;
-    }
-    let result = decimalValue + 1;  // Add 1 for demonstration
-    let hexResult = result.toString(16).toUpperCase(); // Convert back to hex
-    resultDisplay.textContent = "Result: " + hexResult;
-  } catch (error) {
-    resultDisplay.textContent = "Result: Error";
+  } else if (value === "CLR") {
+      keyboard.clearDisplay();
+      return;
   }
+
+  keyboard.captureInput(value);
+}
+
+function updateOutputType() {
+  const outputTypeDropdown = document.getElementById("output-type");
+  keyboard.output = parseInt(outputTypeDropdown.value); 
 }
