@@ -70,19 +70,6 @@ h2 {
     transform: translateY(2px);
 }
 
-/* Special Key (CLR and =) */
-.key:nth-last-child(2),
-.key:last-child {
-    background-color: black;
-    border-color: white;
-    color: white;
-}
-
-.key:nth-last-child(2):hover,
-.key:last-child:hover {
-    background-color: #ff4d4d;
-    color: black;
-}
 
 .button-container {
     display: flex;               /* Enable Flexbox */
@@ -152,3 +139,64 @@ select {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+#display {
+    width: 50vw;  /* Start with half the screen width */
+    min-width: 200px;  /* Ensure a reasonable minimum size */
+    max-width: 90vw;  /* Prevent it from becoming too wide */
+    font-size: 20px;
+    text-align: center;
+    color: green;
+    font-family: 'Courier New', monospace;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: width 0.3s ease-in-out; /* Smooth expansion */
+}
+
+
+.display-container {
+    display: flex;
+    flex-direction: column;  /* Always stack children vertically */
+    align-items: center;     /* Center elements */
+    gap: 10px;               /* Add space between display and select */
+}
+
+
+/* Placeholder Styling */
+#display::placeholder {
+    color: gray;              
+    font-style: italic;       
+    text-align: center;       
+    font-family: 'Courier New', monospace; 
+}
+
+
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between rows */
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    gap: 5px; /* Space between buttons */
+}
+
+/* .key {
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    text-align: center;
+    min-width: 40px;
+}
+
+.key:hover {
+    background-color: #ddd;
+} */

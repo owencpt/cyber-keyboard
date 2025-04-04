@@ -1,115 +1,98 @@
 class CyberSecurityKeyboard {
   constructor() {
-      this.userInputs = [];  // Stores all user inputs
-      this.currentInput = "";  // Temporary string to accumulate input until operator is pressed
-      this.arithmeticOperations = [];  // Stores arithmetic operations
-      this.output = 1;
-      this.input = 1;
-  }
-
-  // Method to handle input
-  captureInput(userInput) {
-      this.userInputs.push(userInput);
-      this.updateDisplay();
+      this.output = 1; // Output type (1: Decimal, 2: Hex)
+      this.displayElement = document.getElementById("display"); // Get the input field
   }
 
   // Method to evaluate user inputs
   evaluateInput() {
-      if (this.userInputs.length === 0) return;
+      let expression = this.displayElement.value.trim();
+      if (!expression) return;
 
       try {
-          // Convert array to string and evaluate expression
-          let expression = this.userInputs.join("");
-          expression = this.conversion(expression);
-          alert(expression)
-          let result = eval(expression);  // ⚠️ Be careful with eval (safer alternatives below)
+          expression = this.conversion(expression); // Convert hex to decimal
+          let result = eval(expression); // ⚠️ Be careful with eval (consider safer alternatives)
 
-          if (this.output === 2){
-            result = '0x' + result.toString(16).toUpperCase();
+          if (this.output === 2) {
+              result = '0x' + result.toString(16).toUpperCase(); // Convert to hex if needed
           }
 
-          this.userInputs = [result]; // Store result in userInputs
-          this.updateDisplay();
-
-          
+          this.displayElement.value = result; // Show result in the input field
       } catch (error) {
           alert("Invalid Expression!");
           this.clearDisplay();
       }
   }
 
-  conversion(expression){
-      return expression.replace(/\b0x[0-9A-Fa-f]+\b/g, (match) => {
-        return parseInt(match, 16); // Convert hex to decimal
-    });
-
+  // Convert hexadecimal numbers (0x...) to decimal
+  conversion(expression) {
+      return expression.replace(/\b0x[0-9A-Fa-f]+\b/g, match => parseInt(match, 16));
   }
 
-  // Method to update the display in the HTML
-  updateDisplay() {
-    const displayElement = document.getElementById("display");
+  // Update display
+  updateDisplay(value) {
+      this.displayElement.value += value; // Append new input to the field
+  }
 
-    // If userInputs is empty or just contains a space, show placeholder text
-    if (this.userInputs.length === 0 || this.userInputs.join("") === " ") {
-        displayElement.innerText = "Enter your input...";
-    } else {
-        // Join user inputs into a string
-        let displayText = this.userInputs.join("");
-
-        // Set the modified string as the inner HTML of the display
-        displayElement.innerHTML = displayText;
-    }
-}
-
-  // Method to clear display 
+  // Clear display
   clearDisplay() {
-      this.userInputs = ["\u00A0"]; // Non-breaking space to prevent collapse
-      this.updateDisplay();
+      this.displayElement.value = ""; // Clear the input field
   }
 
+  // Handle backspace
   backspace() {
-    this.userInputs.pop();
-    this.updateDisplay();
-}
+      this.displayElement.value = this.displayElement.value.slice(0, -1);
+  }
 }
 
 // Create an instance of the class
 const keyboard = new CyberSecurityKeyboard();
 
-// Function to handle button clicks (used in onclick)
+// Handle button clicks
 function handleKeyPress(value) {
-
   if (value === "=") {
       keyboard.evaluateInput();
-      return;
   } else if (value === "CLR") {
       keyboard.clearDisplay();
-      return;
+  } else {
+      keyboard.updateDisplay(value);
   }
-
-  keyboard.captureInput(value);
 }
 
+// Change output type (Decimal/Hex)
 function updateOutputType() {
   const outputTypeDropdown = document.getElementById("output-type");
-  keyboard.output = parseInt(outputTypeDropdown.value); 
+  keyboard.output = parseInt(outputTypeDropdown.value);
 }
 
-
-// Listen for keydown events to handle keyboard input
+// Listen for keydown events
 document.addEventListener('keydown', function(event) {
-  let key = event.key.toUpperCase(); // Convert to uppercase for uniformity
-  
-  // Define valid keys for the keyboard (including digits and A-F for hex)
-  const validKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', '+', '=', 'CLR'];
+  const key = event.key;
 
-  // If the key pressed is valid, simulate a button press
-  if (validKeys.includes(key)) {
+  // Allow numeric, operators, and backspace
+  if (/[\d+\-*/().=]/.test(key)) {
       handleKeyPress(key);
-  }
+  } else if (key === 'Backspace') {
+      event.preventDefault();  // Prevent default backspace behavior
 
-  // Handle Backspace key
-  if (key === 'BACKSPACE') {
-    keyboard.backspace();
-}
+      keyboard.backspace();
+  } else if (key === 'Enter') {
+      keyboard.evaluateInput();
+  }
 });
+
+
+function adjustDisplayWidth() {
+  let display = document.getElementById("display");
+  let textLength = display.value.length;
+
+  // Calculate new width: Expand when text is too long
+  if (textLength > 15) {
+      display.style.width = "90vw"; // Expand if text exceeds a threshold
+  } else {
+      display.style.width = "50vw"; // Keep it at half the screen initially
+  }
+}
+
+// Attach event listener to resize dynamically
+document.getElementById("display").addEventListener("input", adjustDisplayWidth);
